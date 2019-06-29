@@ -1,0 +1,58 @@
+.tabbar-wrap {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 45px;
+  width: 100%;
+  padding-top: 6px;
+  box-shadow: 0 0 2px #c4c4c4;
+  &.isIphoneX {
+    padding-bottom: 66rpx;
+  }
+  .tabbar {
+    display: flex;
+    .tabbar-item {
+      flex: 1;
+      .tabbar-icon {
+        height: 24px;
+        text-align: center;
+        position: relative;
+        img {
+          width: 24px;
+          height: 24px;
+          &.imgSpecial {
+            width: 84px;
+            height: 84px;
+          }
+        }
+      }
+      .tabbar-text {
+        text-align: center;
+        line-height: 18px;
+        color: #979795;
+        font-size: 10px;
+        &.active {
+          color: #45b7af
+        }
+      }
+      &.wrapSpecial {
+        .tabbar-icon {
+          position: absolute;
+          top: -36px;
+          width: 84px;
+          height: 84px;
+          padding: 6px;
+          left: 50%;
+          margin-left: -48px;
+          border-radius: 50%;
+          border-top: 2px solid #c4c4c4;
+          text-align: center;
+        }
+        .tabbar-text {
+          position: relative;
+          bottom: -56px;
+        }
+      }
+    }
+  }
+}
