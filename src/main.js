@@ -1,6 +1,7 @@
 import Vue from 'vue'
 import App from './App'
 import store from './store'
+import './index.less'
 
 // 禁用原生tabBar
 wx.hideTabBar()

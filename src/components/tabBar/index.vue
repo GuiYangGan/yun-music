@@ -1,5 +1,5 @@
 <template>
-  <div class="tabbar-wrap" :class="isIphoneX ? 'isIphoneX' : ''">
+  <div class="tabbar-wrap" :class="isIphoneX ? 'isIphoneX' : ''" v-show="!searching">
     <ul class="tabbar">
       <li
         class="tabbar-item"
@@ -27,7 +27,8 @@
 
   export default {
     props: {
-      selectNavIndex: Number
+      selectNavIndex: Number,
+      searching: Boolean
     },
     data () {
       return {
@@ -35,16 +36,23 @@
         selectedColor: '#45b7af',
         navList: [
           {
-            pagePath: '/pages/index/main',
-            iconPath: '/static/tabs/home.png',
-            selectedIconPath: '/static/tabs/home-active.png',
-            text: '首页'
+            pagePath: '/pages/music/main',
+            iconPath: '/static/tabs/music.png',
+            selectedIconPath: '/static/tabs/music-active.png',
+            text: '乐库'
           },
           {
-            pagePath: '/pages/logs/main',
-            iconPath: '/static/tabs/orders.png',
-            selectedIconPath: '/static/tabs/orders-active.png',
-            text: '订单'
+            pagePath: '/pages/play/main',
+            iconPath: '/static/tabs/play.png',
+            selectedIconPath: '/static/tabs/play-active.png',
+            text: '',
+            isSpecial: true
+          },
+          {
+            pagePath: '/pages/user/main',
+            iconPath: '/static/tabs/user.png',
+            selectedIconPath: '/static/tabs/user-active.png',
+            text: '我的'
           }
         ]
       }

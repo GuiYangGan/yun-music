@@ -1,25 +1,32 @@
 {
   "pages": [
-    "pages/index/main",
-    "pages/logs/main"
+    "pages/music/main",
+    "pages/play/main",
+    "pages/user/main",
+    "pages/search/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
-    "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle": "black"
+    "navigationBarBackgroundColor": "#f0413f",
+    "navigationBarTitleText": "云音乐",
+    "navigationBarTextStyle": "white"
   },
   "tabBar": {
     "list": [{
-      "text": "首页",
-      "pagePath": "pages/index/main",
-      "iconPath": "static/tabs/home.png",
-      "selectedIconPath": "static/tabs/home-active.png"
+      "text": "乐库",
+      "pagePath": "pages/music/main",
+      "iconPath": "static/tabs/music.png",
+      "selectedIconPath": "static/tabs/music-active.png"
     }, {
-      "text": "订单",
-      "pagePath": "pages/logs/main",
-      "iconPath": "static/tabs/orders.png",
-      "selectedIconPath": "static/tabs/orders-active.png"
+      "text": "",
+      "pagePath": "pages/play/main",
+      "iconPath": "static/tabs/play.png",
+      "selectedIconPath": "static/tabs/play-active.png"
+    }, {
+      "text": "我的",
+      "pagePath": "pages/user/main",
+      "iconPath": "static/tabs/user.png",
+      "selectedIconPath": "static/tabs/user-active.png"
     }]
   }
 }
