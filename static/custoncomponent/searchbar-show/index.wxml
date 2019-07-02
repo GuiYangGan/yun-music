@@ -1,0 +1,23 @@
+<view class="page">
+	<view class="page__bd {{searching?'page__hide':'page__show'}}">
+		<view class="weui-search-bar">
+			<view class="weui-search-bar__form">
+				<view class="weui-search-bar__box">
+					<icon class="weui-icon-search_in-box" type="search" size="14" color="#f9a9a5" />
+					<input
+						type="text"
+						class="weui-search-bar__input"
+						placeholder-style="color: #f9a9a5"
+						placeholder="搜索" />
+					<view class="weui-icon-clear" >
+						<icon type="clear" size="14" color="#f9a9a5" />
+					</view>
+				</view>
+				<label class="weui-search-bar__label" bindtap="showInput">
+					<icon class="weui-icon-search" type="search" size="14" color="#f9a9a5" />
+					<view class="weui-search-bar__text">搜索</view>
+				</label>
+			</view>
+		</view>
+	</view>
+</view>

@@ -1,5 +1,6 @@
 {
    "usingComponents": {
+     "search-bar-show": "../../../static/custoncomponent/searchbar-show/index",
      "search-bar": "../../../static/custoncomponent/searchbar/index"
    }
  }

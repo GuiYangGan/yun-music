@@ -4,8 +4,22 @@ view {
 	line-height: 0px;
 }
 .page__bd {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+	z-index: 10;
 	height: 45px;
-	z-index: 5;
+	opacity: 100;
+	transition: all 0.5s cubic-bezier(0.645, 0.045, 0.355, 1);
+}
+.page__show {
+	opacity: 100;
+	z-index: 10;
+}
+.page__hide {
+	z-index: 0;
+	opacity: 0;
 }
 .weui-search-bar {
 	position:relative;
@@ -53,7 +67,6 @@ view {
 	line-height:28px;
 	font-size:14px;
 	caret-color: #fff;
-	color: #fff;
 }
 .weui-icon-clear {
 	position:absolute;
@@ -82,49 +95,4 @@ view {
 	color:#fff;
 	white-space:nowrap;
   font-size: 14px;
-}
-.search-wrapper {
-	background: #fff;
-	height: calc(100vh - 45px);
-	width: 100%;
-	z-index: 99;
-}
-.search {
-	padding: 24px 16px 0 16px;
-}
-.search-title {
-	color: #d96b74;
-	font-size: 18px;
-	font-weight: bold;
-}
-.content-wrapper {
-	display: flex;
-	flex-direction:row;
-	flex-wrap: wrap;
-	align-items: center;
-	margin-top: 16px;
-}
-.search-content {
-	padding: 8px 8px;
-	color: #ed9490;
-	background: #eef0f4;
-	border-radius: 4px;
-	font-size: 14px;
-	margin: 8px 8px 0px;
-	height: 16px;
-	line-height: 5px;
-}
-.clear-history {
-	position: absolute;
-	right: 0;
-	top: 50%;
-	transform: translateY(-50%);
-}
-.loading {
-	font-size: 20px;
-	color: #999;
-	animation: loading 1s linear 0s infinite;
-	position: absolute;
-	top: 33px;
-	left: 80px;
 }

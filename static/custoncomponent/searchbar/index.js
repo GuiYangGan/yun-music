@@ -4,10 +4,11 @@
 Component({
   properties: {
     API: Object,
-    parentFunc: Object
+    parentFunc: Object,
+    searching: Boolean
   },
   data: {
-    inputShowed: false,
+    inputShowed: true,
     inputVal: '',
     hotsongs: {},
     history: {}
@@ -20,7 +21,7 @@ Component({
       this.setData({
         inputShowed: true
       })
-      this.properties.parentFunc.setSearch(true)
+      // this.properties.parentFunc.setSearch(true)
       this.getHotsongs()
     },
     hideInput: function () {

@@ -1,7 +1,8 @@
 <template>
   <div>
     <tab-Bar :selectNavIndex="0" :searching="searching" />
-    <search-bar :API="API" :parentFunc="parentFunc" />
+    <search-bar-show :parentFunc="parentFunc" :searching="searching" />
+    <search-bar :API="API" :parentFunc="parentFunc" :searching="searching" />
   </div>
 </template>
 
