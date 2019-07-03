@@ -1,6 +1,17 @@
+/* eslint-disable no-unused-expressions */
+
 function formatNumber (n) {
   const str = n.toString()
   return str[1] ? str : `0${str}`
+}
+
+export function removeRepeat (data) {
+  const hash = {}
+  const list = data.reduce((acc, val) => {
+    hash[val] ? '' : hash[val] = true && acc.push(val)
+    return acc
+  }, [])
+  return list
 }
 
 export function formatTime (date) {
@@ -20,5 +31,6 @@ export function formatTime (date) {
 
 export default {
   formatNumber,
-  formatTime
+  formatTime,
+  removeRepeat
 }

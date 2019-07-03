@@ -1,0 +1,11 @@
+<view>
+  <view class="title-wrapper">
+    <text class="title-left">个性推荐</text>
+    <text calss="title-right">主播电台</text>
+    <view class="title-bottom-line" style="transform:translateX({{slideOffset}}px);" />
+  </view>
+  <swiper class="swiper-wrapper" bindchange="bindchange">
+    <swiper-item>个性推荐</swiper-item>
+    <swiper-item>主播电台</swiper-item>
+  </swiper>
+</view>

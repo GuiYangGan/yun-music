@@ -8,54 +8,94 @@
 						type="text"
 						class="weui-search-bar__input"
 						placeholder-style="color: #f9a9a5"
-						placeholder="搜索"
+						placeholder="搜索歌曲"
 						confirm-type="搜索"
-						value="{{inputVal}}"
-						auto-focus
+						value="{{searchKey}}"
 						focus="{{searching}}"
 						bindinput="inputTyping"
 						bindconfirm="handleSearch" />
-					<view class="weui-icon-clear" wx:if="{{inputVal.length > 0}}" bindtap="clearInput">
+					<view class="weui-icon-clear" wx:if="{{searchKey.length > 0}}" bindtap="clearInput">
 						<icon type="clear" size="14" color="#f9a9a5" />
 					</view>
 				</view>
 				<label class="weui-search-bar__label" hidden="{{searching}}" bindtap="showInput">
 					<icon class="weui-icon-search" type="search" size="14" color="#f9a9a5" />
-					<view class="weui-search-bar__text">搜索</view>
+					<view class="weui-search-bar__text">搜索歌曲</view>
 				</label>
 			</view>
 			<view class="weui-search-bar__cancel-btn" hidden="{{!searching}}" bindtap="hideInput">取消</view>
 		</view>
 	</view>
-	<view class="search-wrapper">
-		<scroll-view scroll-x="false" scroll-y="true" style="height: 100%;">
-				<view  hidden="{{!searching}}">
-					<view class="search">
-						<view style="position:relative;">
-							<text class="search-title">
-								热门搜索
-							</text>
-						</view>
-						<view class="content-wrapper">
-							<text class="search-content" wx:for="{{hotsongs}}" wx:key="index">
-								{{item.first}}
-							</text>
-						</view>
+	<view class="search-wrapper {{searching?'search-show':'search-hide'}}">
+		<scroll-view scroll-y enable-back-to-top style="height: 100%;" bindscrolltolower="onScrollToLower">
+			<view hidden="{{hasSugData > 0 || searchOver}}">
+				<view class="search">
+					<view style="position:relative;">
+						<text class="search-title">
+							热门搜索
+						</text>
 					</view>
-					<view class="search">
-						<view style="position:relative;">
-							<text class="search-title">
-								历史搜索
-							</text>
-							<icon type="clear" size="18" color="#ec6f61" class="clear-history" />
-						</view>
-						<view class="content-wrapper">
-							<text class="search-content" wx:for="{{hotsongs}}" wx:key="index">
-								{{item.first}}
-							</text>
-						</view>
+					<view class="content-wrapper" hidden="{{hotsongs.length === 0}}">
+						<text class="search-content" wx:for="{{hotsongs}}" wx:key="index" data-value="{{item.first}}" bindtap="handleSearch">
+							{{item.first}}
+						</text>
+					</view>
+					<view hidden="{{hotsongs.length > 0}}">
+						<text class="no-data">
+							<text class="iconfont icon-nodata nodata-icon" />
+							<text>暂无数据</text>
+						</text>
 					</view>
 				</view>
+				<view class="search">
+					<view style="position:relative;">
+						<text class="search-title">
+							历史搜索
+						</text>
+						<view hidden="{{history.length === 0}}" bindtap="clearStorage">
+							<icon type="clear" size="18" color="#ec6f61" class="clear-history" />
+						</view>
+					</view>
+					<view hidden="{{history.length > 0}}">
+						<text class="no-data">
+							<text class="iconfont icon-nodata nodata-icon" />
+							<text>暂无历史</text>
+						</text>
+					</view>
+					<view class="content-wrapper" hidden="{{history.length === 0}}">
+						<text class="search-content" wx:for="{{history}}" wx:key="index" data-value="{{item}}" bindtap="handleSearch">
+							{{item}}
+						</text>
+					</view>
+				</view>
+			</view>
+			<view hidden="{{hasSugData === 0 || searchOver}}">
+				<block wx:for="{{suggest.order}}" wx:for-item="oName" wx:for-index="oIndex" wx:key="oIndex">
+					<block wx:for="{{suggest[oName]}}" wx:key="index">
+						<view class="suggest-content" bindtap="handleSearch">
+							<text class="content-text">
+								{{item.name}}
+							</text>
+						</view>
+					</block>
+				</block>
+			</view>
+			<view hidden="{{!searchOver}}">
+				<block wx:for="{{serachData}}" wx:key="index">
+					<view class="result-content" bindtap="handleSearch">
+						<text class="content-text">
+							{{item.name}}
+						</text>
+						<text class="introduction-text">
+							{{item.artists[0].name}} - {{item.album.name}}
+						</text>
+					</view>
+				</block>
+				<view class="no-data" hidden="{{serachData.length > 0}}" style="font-size: 16px;">
+					<text class="iconfont icon-nodata nodata-icon" style="top: 5px;font-size: 31px;" />
+					<text>无结果</text>
+				</view>
+			</view>
 		</scroll-view>
 	</view>
 </view>
