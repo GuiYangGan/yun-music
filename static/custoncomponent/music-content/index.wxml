@@ -4,8 +4,29 @@
     <text calss="title-right">主播电台</text>
     <view class="title-bottom-line" style="transform:translateX({{slideOffset}}px);" />
   </view>
+  <swiper
+    autoplay
+    circular
+    indicator-dots
+    indicator-color="#fff"
+    indicator-active-color="#ee423f" >
+    <swiper-item wx:for="{{bannerList}}" wx:key="index">
+      <view class="swiper-item-wrapper" style="background: url({{item.backgroundUrl}}) 100% 100% no-repat;">
+        <image />
+        {{item.name}}
+      </view>
+    </swiper-item>
+  </swiper>
   <swiper class="swiper-wrapper" bindchange="bindchange">
-    <swiper-item>个性推荐</swiper-item>
-    <swiper-item>主播电台</swiper-item>
+    <swiper-item>
+      <scroll-view scroll-y enable-back-to-top class="content-wrapper">
+        个性推荐
+      </scroll-view>
+    </swiper-item>
+    <swiper-item>
+      <scroll-view scroll-y enable-back-to-top class="content-wrapper">
+        主播电台
+      </scroll-view>
+    </swiper-item>
   </swiper>
 </view>

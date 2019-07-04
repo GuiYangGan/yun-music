@@ -5,7 +5,10 @@
 		"es6": false,
 		"postcss": true,
 		"minified": true,
-		"newFeature": true
+		"newFeature": true,
+		"nodeModules": false,
+		"autoAudits": false,
+		"checkInvalidKey": true
 	},
 	"miniprogramRoot": "dist/wx/",
 	"compileType": "miniprogram",

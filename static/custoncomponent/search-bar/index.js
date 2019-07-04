@@ -27,10 +27,10 @@ Component({
     searchPage: 0
   },
   ready () {
-    // this.getHotsongs()
-    // this.getStorage({
-    //   key: 'SEARCH_HISTROY'
-    // })
+    this.getHotsongs()
+    this.getStorage({
+      key: 'SEARCH_HISTROY'
+    })
   },
   methods: {
     onScrollToLower: function () {
@@ -106,9 +106,10 @@ Component({
           this.setData({
             hotsongs: result.hots
           })
-        } else {
-          this.properties.API.showErrNotice(msg ? {err: msg} : {err})
         }
+        // else {
+        //   this.properties.API.showErrNotice(msg ? {err: msg} : {err})
+        // }
       } catch (err) {}
     },
     async searchSuggest (params = {}) {

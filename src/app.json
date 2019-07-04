@@ -2,8 +2,7 @@
   "pages": [
     "pages/music/main",
     "pages/play/main",
-    "pages/user/main",
-    "pages/search/main"
+    "pages/user/main"
   ],
   "window": {
     "backgroundTextStyle": "light",

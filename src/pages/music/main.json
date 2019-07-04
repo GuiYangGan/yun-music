@@ -1,6 +1,6 @@
 {
    "usingComponents": {
-     "search-bar": "../../../static/custoncomponent/searchbar/index",
+     "search-bar": "../../../static/custoncomponent/search-bar/index",
      "music-content": "../../../static/custoncomponent/music-content/index"
    }
  }
