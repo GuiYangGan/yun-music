@@ -101,15 +101,12 @@ Component({
     },
     async getHotsongs (params = {}) {
       try {
-        const { code, result, err, msg } = await this.properties.API.gethotsongs(params)
+        const { code, result } = await this.properties.API.gethotsongs(params)
         if (code === 200) {
           this.setData({
             hotsongs: result.hots
           })
         }
-        // else {
-        //   this.properties.API.showErrNotice(msg ? {err: msg} : {err})
-        // }
       } catch (err) {}
     },
     async searchSuggest (params = {}) {

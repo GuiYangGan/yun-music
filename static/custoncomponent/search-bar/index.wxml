@@ -42,7 +42,7 @@
 					</view>
 					<view hidden="{{hotsongs.length > 0}}">
 						<text class="no-data">
-							<text class="iconfont icon-nodata nodata-icon" />
+							<text class="iconfont icon-zanwushuju nodata-icon" />
 							<text>暂无数据</text>
 						</text>
 					</view>
@@ -58,7 +58,7 @@
 					</view>
 					<view hidden="{{history.length > 0}}">
 						<text class="no-data">
-							<text class="iconfont icon-nodata nodata-icon" />
+							<text class="iconfont icon-zanwushuju nodata-icon" />
 							<text>暂无历史</text>
 						</text>
 					</view>
@@ -92,7 +92,7 @@
 					</view>
 				</block>
 				<view class="no-data" hidden="{{serachData.length > 0}}" style="font-size: 16px;">
-					<text class="iconfont icon-nodata nodata-icon" style="top: 5px;font-size: 31px;" />
+					<text class="iconfont icon-zanwushuju nodata-icon" style="top: 5px;font-size: 31px;" />
 					<text>无结果</text>
 				</view>
 			</view>

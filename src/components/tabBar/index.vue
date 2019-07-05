@@ -36,9 +36,9 @@
         selectedColor: '#45b7af',
         navList: [
           {
-            pagePath: '/pages/music/main',
-            iconPath: '/static/tabs/music.png',
-            selectedIconPath: '/static/tabs/music-active.png',
+            pagePath: '/pages/home/main',
+            iconPath: '/static/tabs/home.png',
+            selectedIconPath: '/static/tabs/home-active.png',
             text: '乐库'
           },
           {

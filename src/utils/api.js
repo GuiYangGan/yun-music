@@ -48,7 +48,7 @@ const getWXApiInfo = (apiCode, params = {}) => {
   })
 }
 
-const request = (url, params) => {
+const request = (url, params = {}) => {
   let _url = API_BASE_URL + url
   return new Promise((resolve, reject) => {
     wx.request({

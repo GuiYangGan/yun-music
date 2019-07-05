@@ -17,6 +17,14 @@ Component({
     this.getBanner()
   },
   methods: {
+    jumpPage (e) {
+      const router = e.currentTarget.dataset.router
+      if (router && router !== '') {
+        wx.navigateTo({
+          url: router
+        })
+      }
+    },
     bindchange (e) {
       const { quarter, half } = this.properties
       const current = e.detail.current
@@ -55,14 +63,13 @@ Component({
     async getBanner () {
       try {
         const { code, banners } = await this.properties.API.getBanner({
-          type: 2
+          type: 0
         })
         if (code === 200) {
           this.setData({
             bannerList: banners
           })
         }
-        console.log(banners)
       } catch (err) {
         console.log(err)
       }

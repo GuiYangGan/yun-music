@@ -1,8 +1,10 @@
 {
   "pages": [
-    "pages/music/main",
+    "pages/home/main",
     "pages/play/main",
-    "pages/user/main"
+    "pages/user/main",
+    "pages/mv/main",
+    "pages/mv/play/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -13,9 +15,9 @@
   "tabBar": {
     "list": [{
       "text": "乐库",
-      "pagePath": "pages/music/main",
-      "iconPath": "static/tabs/music.png",
-      "selectedIconPath": "static/tabs/music-active.png"
+      "pagePath": "pages/home/main",
+      "iconPath": "static/tabs/home.png",
+      "selectedIconPath": "static/tabs/home-active.png"
     }, {
       "text": "",
       "pagePath": "pages/play/main",

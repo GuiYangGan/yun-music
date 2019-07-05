@@ -1,3 +1,5 @@
+@import '../../custoncomponent/font/index.wxss'
+
 .title-wrapper {
   height: 50px;
   background: #f0413f;
@@ -25,12 +27,57 @@
   height: calc(100vh - 245px);
 }
 
-.content-wrapper {
-  height: 100%;
+.wrapper {
+  height: calc(100vh - 45px);
 }
 
 .swiper-item-wrapper {
   margin: 0 16px;
   height: 100%;
   line-height: 30px;
+  border-radius: 8px;
+}
+
+.swiper-img {
+  width: 100%;
+  height: 150px;
+  border-radius: 8px;
+}
+
+.swiper-nodata {
+  font-size: 150px;
+  color: #f0413f;
+  line-height: 150px;
+}
+
+.secondary-wrapper {
+  display: grid;
+  grid-template-columns: repeat(4, 25%);
+  position: relative;
+  text-align: center;
+  margin-top: 16px;
+}
+
+.secondary-content {
+  line-height: 30px;
+}
+
+.secondary-text {
+  font-size: 12px;
+}
+
+.secondary-icon {
+  display: block;
+  color: #fff;
+  background: #f0413f;
+  margin: 0 auto;
+  height: 48px;
+  width: 48px;
+  line-height: 48px;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.icon-fontsize {
+  font-size: 24px;
 }
