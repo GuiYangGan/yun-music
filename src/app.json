@@ -4,7 +4,8 @@
     "pages/play/main",
     "pages/user/main",
     "pages/mv/main",
-    "pages/mv/play/main"
+    "pages/mv/play/main",
+    "pages/play/view/main"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -29,5 +30,6 @@
       "iconPath": "static/tabs/user.png",
       "selectedIconPath": "static/tabs/user-active.png"
     }]
-  }
+  },
+  "requiredBackgroundModes": ["audio"]
 }

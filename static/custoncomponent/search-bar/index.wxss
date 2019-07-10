@@ -1,4 +1,4 @@
-@import '../../custoncomponent/font/index.wxss'
+@import '../../custoncomponent/font/index.wxss';
 
 .page {
 	height: 45px;

@@ -1,12 +1,22 @@
 /* eslint-disable no-unused-vars */
 
 const state = {
-  systemInfo: null
+  systemInfo: null,
+  globalData: {}
 }
 
 const mutations = {
   setSystemInfo (state, systemInfo) {
     state.systemInfo = systemInfo
+  },
+  setGlobalData (state, data) {
+    state.globalData = {
+      ...state.globalData,
+      ...data
+    }
+  },
+  clearGlobalData (state) {
+    state.globalData = {}
   }
 }
 

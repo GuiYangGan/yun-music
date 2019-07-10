@@ -27,23 +27,10 @@ export default {
       }
     }
   },
-  onLoad () {
-    this.getSystemInfo()
-  },
+  onLoad () {},
   methods: {
     setSearch (searching) {
       this.searching = searching
-    },
-    bindchange (e) {
-      console.log(e.detail.current)
-    },
-    async getSystemInfo () {
-      try {
-        const data = await API.getWXApiInfo('getSystemInfo')
-        // const half = data.windowWidth / 2
-        const quarter = data.windowWidth / 2 / 2
-        this.slideOffset = quarter - 15.5
-      } catch (err) {}
     }
   }
 }

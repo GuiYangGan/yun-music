@@ -102,7 +102,7 @@ Component({
     async getHotsongs (params = {}) {
       try {
         const { code, result } = await this.properties.API.gethotsongs(params)
-        if (code === 200) {
+        if (code === 200 && result.hots) {
           this.setData({
             hotsongs: result.hots
           })
@@ -112,7 +112,7 @@ Component({
     async searchSuggest (params = {}) {
       try {
         const { code, result } = await this.properties.API.searchSuggest(params)
-        if (code === 200) {
+        if (code === 200 && Object.keys(result).length) {
           this.setData({
             hasSugData: Object.keys(result).length,
             suggest: result
@@ -151,7 +151,7 @@ Component({
           limit: 30,
           offset: params.offset
         })
-        if (code === 200) {
+        if (code === 200 && result.songs) {
           const serachData = this.properties.serachData.concat(result.songs)
           this.setData({
             serachData: serachData,

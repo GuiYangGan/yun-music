@@ -1,4 +1,4 @@
-@import '../../custoncomponent/font/index.wxss'
+@import '../../custoncomponent/font/index.wxss';
 
 .title-wrapper {
   height: 50px;
@@ -24,7 +24,6 @@
 
 .swiper-wrapper {
   line-height: 30px;
-  height: calc(100vh - 245px);
 }
 
 .wrapper {
@@ -40,8 +39,16 @@
 
 .swiper-img {
   width: 100%;
-  height: 150px;
+  height: 100%;
   border-radius: 8px;
+}
+
+.swiper-nodata-wrapper {
+  height: 150px;
+  width: 100vw;
+  text-align: center;
+  position: absolute;
+  top: 55px;
 }
 
 .swiper-nodata {

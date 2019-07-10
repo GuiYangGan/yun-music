@@ -10,6 +10,7 @@ Component({
     slideOffset: 0,
     half: 0,
     quarter: 0,
+    hasBannerData: true,
     bannerList: []
   },
   ready () {
@@ -17,6 +18,17 @@ Component({
     this.getBanner()
   },
   methods: {
+    goToPlayView (e) {
+      const { targetId, targetType } = e.currentTarget.dataset.info
+      if (targetType === '1') {
+        wx.navigateTo({
+          url: '/pages/play/view/main?' + `id=${targetId}`,
+          fail (err) {
+            console.log(err)
+          }
+        })
+      }
+    },
     jumpPage (e) {
       const router = e.currentTarget.dataset.router
       if (router && router !== '') {
@@ -65,13 +77,21 @@ Component({
         const { code, banners } = await this.properties.API.getBanner({
           type: 0
         })
-        if (code === 200) {
+        if (code === 200 && banners.length > 0) {
           this.setData({
-            bannerList: banners
+            bannerList: banners,
+            hasBannerData: banners.length > 0
+          })
+        } else {
+          this.setData({
+            hasBannerData: false
           })
         }
       } catch (err) {
         console.log(err)
+        this.setData({
+          hasBannerData: false
+        })
       }
     }
   }

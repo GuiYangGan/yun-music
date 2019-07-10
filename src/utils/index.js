@@ -14,6 +14,15 @@ export function removeRepeat (data) {
   return list
 }
 
+export function removeRepeatObject (data, itemName) {
+  const hash = {}
+  const list = data.reduce((acc, val) => {
+    hash[val[itemName]] ? '' : hash[val[itemName]] = true && acc.push(val)
+    return acc
+  }, [])
+  return list
+}
+
 export function formatTime (date) {
   const year = date.getFullYear()
   const month = date.getMonth() + 1
@@ -32,5 +41,6 @@ export function formatTime (date) {
 export default {
   formatNumber,
   formatTime,
-  removeRepeat
+  removeRepeat,
+  removeRepeatObject
 }

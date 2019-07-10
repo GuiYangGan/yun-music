@@ -12,24 +12,17 @@ const errCode = {
   504: '网络请求超时，请稍后重试'
 }
 
-const showErrNotice = ({err, success, fail, complete}) => {
+const showErrNotice = (url = '/pages/home/main') => {
   wx.showModal({
-    title: '出错啦',
-    content: err,
-    success (res) {
-      if (success) {
-        success()
-      }
-    },
-    fail (error) {
-      if (fail) {
-        fail(error)
-      }
-    },
+    content: '服务器开了点小差~~',
+    cancelColor: '#DE655C',
+    confirmColor: '#DE655C',
+    showCancel: false,
+    confirmText: '返回',
     complete () {
-      if (complete) {
-        complete()
-      }
+      wx.switchTab({
+        url: url
+      })
     }
   })
 }
@@ -76,6 +69,9 @@ const request = (url, params = {}) => {
 }
 
 const API = {
+  // 命令前缀
+  API_BASE_URL,
+
   // 网络请求出错
   showErrNotice,
 
@@ -134,6 +130,14 @@ const API = {
   getNewMv: (params) => {
     return request('/mv/first', params)
   },
+  // MV数据
+  getMVDetail: (params) => {
+    return request('/mv/detail', params)
+  },
+  // MV播放地址
+  getMVUrl: (params) => {
+    return request('/mv/url', params)
+  },
   // 最新专辑
   getNewEst: (params) => {
     return request('/album/newest', params)
@@ -149,6 +153,18 @@ const API = {
   // 歌手排行
   getSonger: (params) => {
     return request('/toplist/artist', params)
+  },
+  // 音乐详情
+  getSongDetail: (params) => {
+    return request('/song/detail', params)
+  },
+  // 音乐播放地址
+  getSongUrl: (params) => {
+    return request('/song/url', params)
+  },
+  // 相似音乐
+  getSimiSong: (params) => {
+    return request('/simi/song', params)
   }
 }
 
