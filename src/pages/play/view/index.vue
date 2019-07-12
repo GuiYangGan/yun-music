@@ -42,6 +42,8 @@ export default {
     }
   },
   onLoad (options) {
+    const { bgAudioManage } = global.getApp().globalData
+    console.log(bgAudioManage)
     const historySong = wx.setStorageSync('history_song')
     this.history_song = historySong
     const audioId = options.id
