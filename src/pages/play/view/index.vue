@@ -36,24 +36,36 @@ export default {
       parentFunc: {},
       songInfo: {},
       isPlay: '',
-      songid: [],
+      songId: [],
       song: [],
-      history_songId: []
+      history_song: []
     }
   },
   onLoad (options) {
-    const { bgAudioManage } = global.getApp().globalData
-    console.log(bgAudioManage)
-    const historySong = wx.setStorageSync('history_song')
-    this.history_song = historySong
     const audioId = options.id
-    this.play(audioId)
+    const historySong = wx.getStorageSync('history_song')
+    const { currentSongId, bgAudioManage } = global.getApp().globalData
+    this.history_song = historySong || []
+    if (bgAudioManage && Object.keys(bgAudioManage).length > 0) {
+      // const isPaused = bgAudioManage.paused // false表示音乐暂停
+      if (audioId !== currentSongId) {
+        this.play(audioId)
+      }
+    } else {
+      this.play(audioId)
+    }
   },
-  mounted () {
+  onShow () {
+    // 页面显示，每次打开页面都会调用一次
   },
-  destroy () {
-    this.songId = null
-    this.songInfo = {}
+  onReady () {
+    // 页面初次渲染完成，一个页面只会调用一次，代表页面已经准备妥当，可以和视图层进行交互
+  },
+  onHide () {
+    // 当navigateTo或底部tab切换时调用
+  },
+  onUnload () {
+    // 当redirectTo或navigateBack的时候调用
   },
   methods: {
     async getSongDetail (params) {
@@ -64,7 +76,7 @@ export default {
         if (data.code === 200) {
           this.songInfo = data.songs[0]
           global.getApp().globalData.songInfo = data.songs[0]
-          this.createBgAudio(params.url)
+          this.createBgAudio(params.url, params.ids)
         }
       } catch (err) {
         console.log(err)
@@ -73,7 +85,7 @@ export default {
     play (audioId) {
       if (audioId) {
         const url = this.url + `${audioId}.mp3`
-        global.getApp().globalData.songId = audioId
+        global.getApp().globalData.currentSongId = audioId
         wx.setInnerAudioOption({
           mixWithOther: false,
           obeyMuteSwitch: false
@@ -84,23 +96,19 @@ export default {
         })
       }
     },
-    createBgAudio (url) {
-      const { songInfo } = global.getApp().globalData
+    createBgAudio (url, audioId) {
+      const { songInfo = {} } = global.getApp().globalData
       const bgAudioManage = wx.getBackgroundAudioManager()
       global.getApp().globalData.bgAudioManage = bgAudioManage
       bgAudioManage.title = songInfo.name
-      console.log(`${songInfo.ar.map(item => item.name).join('/')}`)
       bgAudioManage.singer = `${songInfo.ar.map(item => item.name).join('/')}`
       bgAudioManage.epname = `${songInfo.alia.map(item => item.name).join('/')}`
       bgAudioManage.coverImgUrl = songInfo.al.picUrl
       bgAudioManage.src = url
       let historySong = this.history_song
-      console.log(songInfo)
       historySong.push(songInfo)
       historySong = removeRepeatObject(historySong, 'id')
-      console.log(historySong)
       bgAudioManage.onPlay(res => {
-        console.log('开始播放')
         this.isPlay = true
         this.history_song = historySong
       })
@@ -109,7 +117,7 @@ export default {
         this.isPlay = false
         // this.go_lastSong()
       })
-      bgAudioManage.onError(() => {
+      bgAudioManage.onError((e) => {
         API.showErrNotice()
       })
       wx.setStorageSync('history_song', historySong)

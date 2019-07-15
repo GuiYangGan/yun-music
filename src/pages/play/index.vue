@@ -39,21 +39,57 @@ export default {
   data () {
     return {
       API,
-      isHiddenBar: false,
-      searching: false,
+      url: 'https://music.163.com/song/media/outer/url?id=',
       parentFunc: {},
       songInfo: {},
-      isPlay: ''
+      isPlay: '',
+      songId: [],
+      song: []
     }
   },
-  onLoad (options) {
-    this.isHiddenBar = options.isHiddenBar
+  onLoad () {
   },
-  mounted () {
+  onShow () {
+    const { bgAudioManage, currentSongId } = global.getApp().globalData
+    const historySong = wx.getStorageSync('history_song') || []
+    this.song = historySong
+    this.songId = currentSongId
+    if (this.song.length > 0) {
+      // 进入播放页面后，填充songInfo数据
+      let songInfo = {}
+      if (this.songId && this.songId !== '') {
+        songInfo = this.song.find(item => Number(item.id) === Number(this.songId))
+      } else {
+        songInfo = this.song[0]
+      }
+      this.songInfo = songInfo
+      // 获取音乐播放的状态，如： 暂停、进度等
+      if (bgAudioManage && Object.keys(bgAudioManage).length > 0) {
+        const isPaused = bgAudioManage.paused // false表示音乐暂停
+        this.isPlay = !isPaused
+      }
+    } else {
+      wx.showModal({
+        content: '请先前往乐库添加歌曲',
+        showCancel: false,
+        confirmText: '立即前往',
+        complete () {
+          wx.switchTab({
+            url: '/pages/home/main'
+          })
+        }
+      })
+    }
   },
   methods: {
     handleToggleBGAudio () {
-      console.log(123)
+      const bgAudioManage = global.getApp().globalData.bgAudioManage
+      if (this.isPlay) {
+        bgAudioManage.pause()
+      } else {
+        bgAudioManage.play()
+      }
+      this.isPlay = !this.isPlay
     }
   }
 }

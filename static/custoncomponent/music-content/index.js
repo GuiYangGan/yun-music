@@ -75,9 +75,10 @@ Component({
     async getBanner () {
       try {
         const { code, banners } = await this.properties.API.getBanner({
-          type: 0
+          type: 2
         })
         if (code === 200 && banners.length > 0) {
+          // 默认为 1 即单曲 , 取值意义 : 1: 单曲, 10: 专辑, 100: 歌手, 1000: 歌单, 1002: 用户, 1004: MV, 1006: 歌词, 1009: 电台, 1014: 视频
           this.setData({
             bannerList: banners,
             hasBannerData: banners.length > 0
