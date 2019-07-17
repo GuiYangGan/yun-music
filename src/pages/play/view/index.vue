@@ -47,9 +47,11 @@ export default {
     const { currentSongId, bgAudioManage } = global.getApp().globalData
     this.history_song = historySong || []
     if (bgAudioManage && Object.keys(bgAudioManage).length > 0) {
-      // const isPaused = bgAudioManage.paused // false表示音乐暂停
+      const isPaused = bgAudioManage.paused // true表示音乐暂停
       if (audioId !== currentSongId) {
         this.play(audioId)
+      } else {
+        this.isPlay = !isPaused
       }
     } else {
       this.play(audioId)
@@ -113,9 +115,9 @@ export default {
         this.history_song = historySong
       })
       bgAudioManage.onEnded(() => {
-        console.log(this)
+        console.log('onEnded-view页面')
         this.isPlay = false
-        // this.go_lastSong()
+        // this.go_nextSong()
       })
       bgAudioManage.onError((e) => {
         API.showErrNotice()
@@ -124,6 +126,7 @@ export default {
     },
     handleToggleBGAudio () {
       const { bgAudioManage } = global.getApp().globalData
+      console.log(bgAudioManage)
       if (this.isPlay) {
         bgAudioManage.pause()
       } else {
