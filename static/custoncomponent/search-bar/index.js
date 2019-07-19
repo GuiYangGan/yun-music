@@ -168,7 +168,8 @@ Component({
       }
     },
     goToPlayView (e) {
-      const songId = e.currentTarget.dataset.songId
+      console.log(e.currentTarget.dataset)
+      const songId = e.currentTarget.dataset.songid
       wx.navigateTo({
         url: '/pages/play/view/main?' + `id=${songId}`,
         fail (err) {

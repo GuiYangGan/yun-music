@@ -20,14 +20,34 @@ Component({
   methods: {
     goToPlayView (e) {
       const { targetId, targetType } = e.currentTarget.dataset.info
-      if (targetType === '1') {
-        wx.navigateTo({
-          url: '/pages/play/view/main?' + `id=${targetId}`,
-          fail (err) {
-            console.log(err)
-          }
-        })
+      const id = `id=${targetId}`
+      switch (targetType) {
+        case '1':
+          wx.navigateTo({ url: '/pages/play/view/main?' + id })
+          break
+        case '1004':
+          wx.navigateTo({ url: '/pages/mv/play/main?' + id })
+          break
+        case '1014':
+          wx.navigateTo({ url: '/pages/mv/play/main?' + id })
+          break
+        default: break
       }
+      // if (targetType === '1') {
+      //   wx.navigateTo({
+      //     url: '/pages/play/view/main?' + `id=${targetId}`,
+      //     fail (err) {
+      //       console.log(err)
+      //     }
+      //   })
+      // } else if (targetType === '1004' || targetType === '1014') {
+      //   wx.navigateTo({
+      //     url: '/pages/mv/play/main?' + `id=${targetId}`,
+      //     fail (err) {
+      //       console.log(err)
+      //     }
+      //   })
+      // }
     },
     jumpPage (e) {
       const router = e.currentTarget.dataset.router

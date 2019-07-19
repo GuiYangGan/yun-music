@@ -72,7 +72,7 @@
 			<view hidden="{{hasSugData === 0 || searchOver}}">
 				<block wx:for="{{suggest.order}}" wx:for-item="oName" wx:for-index="oIndex" wx:key="oIndex">
 					<block wx:for="{{suggest[oName]}}" wx:key="index">
-						<view class="suggest-content" bindtap="handleSearch">
+						<view class="suggest-content" bindtap="handleSearch" data-value="{{item.name}}">
 							<text class="content-text">
 								{{item.name}}
 							</text>
@@ -82,15 +82,15 @@
 			</view>
 			<view hidden="{{!searchOver}}">
 				<block wx:for="{{serachData}}" wx:key="index">
-					<view class="result-content" bindtap="handleSearch" bindtap="goToPlayView" data-songId="{{item.id}}">
+					<view class="result-content" bindtap="handleSearch" bindtap="goToPlayView" data-songid="{{item.id}}">
 						<text class="content-text">
 							{{item.name}}
 						</text>
 						<text class="introduction-text">
-							<block wx:for="{{item.artists}}" wx:for-index="idx" wx:for-item="artist" wx:key="idx">
-								{{idx !== 0 ? '/' : ''}}{{artist.name}}
-							</block>
-								- {{item.album.name}}
+							<text class="artist-text" wx:for="{{item.artists}}" wx:for-index="idx" wx:for-item="artist" wx:key="idx">
+								{{idx !== 0 ? '/' : ''}}{{artist.name}}{{idx + 1 === item.artists.length ? ' ' : ''}}
+							</text>
+							<text class="album-text">	- {{item.album.name}}</text>
 						</text>
 					</view>
 				</block>

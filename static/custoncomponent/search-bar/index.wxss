@@ -163,7 +163,7 @@
 }
 .suggest-content {
 	height: 40px;
-	line-height: 14px;
+	line-height: 18px;
 }
 .content-text {
 	font-size: 16px;
@@ -171,6 +171,8 @@
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	overflow: hidden;
+	position: relative;
+	bottom: 6px;
 }
 .order-text {
 	font-size: 12px;
@@ -178,17 +180,34 @@
 }
 .result-content {
 	height: 56px;
-	line-height: 14px;
+	line-height: 16px;
 	position: relative;
+	overflow: hidden;
 }
 .introduction-text {
-	font-size: 12px;
-	color: #999;
-	padding: 0 8px;
 	white-space: nowrap;
 	text-overflow: ellipsis;
 	overflow: hidden;
 	position: absolute;
 	bottom: 6px;
-	display: block;
+	padding: 0 8px;
+	display: flex;
+	width: 100vw;
+}
+
+.artist-text {
+	font-size: 12px;
+	color: #999;
+	display: inline-block;
+	overflow: hidden;
+}
+
+.album-text {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	font-size: 12px;
+	color: #999;
+	display: inline-block;
+	max-width: calc(100vw / 2);
 }
