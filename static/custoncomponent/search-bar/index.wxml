@@ -63,7 +63,7 @@
 						</text>
 					</view>
 					<view class="content-wrapper" hidden="{{history.length === 0}}">
-						<text class="search-content" wx:for="{{history}}" wx:key="index" data-value="{{item}}" bindtap="handleSearch">
+						<text class="search-content" wx:for="{{history}}" wx:key="index" data-value="{{item}}" bindtap="handleSearch" hidden="{{!item}}">
 							{{item}}
 						</text>
 					</view>
@@ -82,12 +82,15 @@
 			</view>
 			<view hidden="{{!searchOver}}">
 				<block wx:for="{{serachData}}" wx:key="index">
-					<view class="result-content" bindtap="handleSearch">
+					<view class="result-content" bindtap="handleSearch" bindtap="goToPlayView" data-songId="{{item.id}}">
 						<text class="content-text">
 							{{item.name}}
 						</text>
 						<text class="introduction-text">
-							{{item.artists[0].name}} - {{item.album.name}}
+							<block wx:for="{{item.artists}}" wx:for-index="idx" wx:for-item="artist" wx:key="idx">
+								{{idx !== 0 ? '/' : ''}}{{artist.name}}
+							</block>
+								- {{item.album.name}}
 						</text>
 					</view>
 				</block>

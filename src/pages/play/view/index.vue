@@ -11,12 +11,15 @@
         </div>
       </div>
       <div class="play-show">
-        <img v-if="songInfo && songInfo.al && songInfo.al.picUrl" class="show-img" :src="songInfo.al.picUrl" />
+        <img
+          v-if="songInfo && songInfo.al && songInfo.al.picUrl"
+          class="show-img"
+          :src="songInfo.al.picUrl" />
       </div>
       <div class="play-control">
-        <i class="iconfont icon-shangyishou" />
+        <i class="iconfont icon-shangyishou" @click="go_prevSong" />
         <i class="iconfont" :class="isPlay ? 'icon-zanting' : 'icon-bofang'" @click="handleToggleBGAudio" />
-        <i class="iconfont icon-xiayishou" />
+        <i class="iconfont icon-xiayishou" @click="go_nextSong" />
       </div>
     </div>
   </block>
@@ -33,6 +36,7 @@ export default {
     return {
       API,
       url: 'https://music.163.com/song/media/outer/url?id=',
+      isShow: true,
       parentFunc: {},
       songInfo: {},
       isPlay: '',
@@ -88,10 +92,7 @@ export default {
       if (audioId) {
         const url = this.url + `${audioId}.mp3`
         global.getApp().globalData.currentSongId = audioId
-        wx.setInnerAudioOption({
-          mixWithOther: false,
-          obeyMuteSwitch: false
-        })
+        this.songId = audioId
         this.getSongDetail({
           ids: audioId,
           url
@@ -99,9 +100,11 @@ export default {
       }
     },
     createBgAudio (url, audioId) {
-      const { songInfo = {} } = global.getApp().globalData
-      const bgAudioManage = wx.getBackgroundAudioManager()
-      global.getApp().globalData.bgAudioManage = bgAudioManage
+      let { songInfo = {}, bgAudioManage } = global.getApp().globalData
+      if (!bgAudioManage) {
+        bgAudioManage = wx.getBackgroundAudioManager()
+        global.getApp().globalData.bgAudioManage = bgAudioManage
+      }
       bgAudioManage.title = songInfo.name
       bgAudioManage.singer = `${songInfo.ar.map(item => item.name).join('/')}`
       bgAudioManage.epname = `${songInfo.alia.map(item => item.name).join('/')}`
@@ -113,26 +116,51 @@ export default {
       bgAudioManage.onPlay(res => {
         this.isPlay = true
         this.history_song = historySong
+        this.song = historySong
+        wx.setStorageSync('history_song', historySong)
       })
       bgAudioManage.onEnded(() => {
         console.log('onEnded-view页面')
         this.isPlay = false
-        // this.go_nextSong()
+        this.go_nextSong()
       })
       bgAudioManage.onError((e) => {
         API.showErrNotice()
       })
-      wx.setStorageSync('history_song', historySong)
     },
     handleToggleBGAudio () {
       const { bgAudioManage } = global.getApp().globalData
-      console.log(bgAudioManage)
       if (this.isPlay) {
         bgAudioManage.pause()
       } else {
         bgAudioManage.play()
       }
       this.isPlay = !this.isPlay
+    },
+    go_prevSong () {
+      const currentIndex = this.song.findIndex(item => Number(item.id) === Number(this.songId))
+      const length = this.song.length
+      const index = currentIndex - 1
+      let info = {}
+      if (index >= 0) {
+        info = this.song[index]
+      } else {
+        info = this.song[length - 1]
+      }
+      this.play(info.id)
+    },
+    go_nextSong () {
+      const currentIndex = this.song.findIndex(item => Number(item.id) === Number(this.songId))
+      const length = this.song.length
+      const index = currentIndex + 1
+      let info = {}
+      if (index < length) {
+        info = this.song[index]
+      } else {
+        info = this.song[0]
+      }
+
+      this.play(info.id)
     }
   }
 }

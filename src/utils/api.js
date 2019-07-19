@@ -12,7 +12,7 @@ const errCode = {
   504: '网络请求超时，请稍后重试'
 }
 
-const showErrNotice = (url = '/pages/home/main') => {
+const showErrNotice = (shouldBack = true, url = '/pages/home/main') => {
   wx.showModal({
     content: '服务器开了点小差~~',
     cancelColor: '#DE655C',
@@ -20,9 +20,11 @@ const showErrNotice = (url = '/pages/home/main') => {
     showCancel: false,
     confirmText: '返回',
     complete () {
-      wx.switchTab({
-        url: url
-      })
+      if (shouldBack) {
+        wx.switchTab({
+          url: url
+        })
+      }
     }
   })
 }

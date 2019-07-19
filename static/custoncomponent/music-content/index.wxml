@@ -12,6 +12,7 @@
       interval="3000"
       style="height: calc(100vw / 2.5);"
       indicator-color="#fff"
+      hidden="{{!hasBannerData}}"
       indicator-active-color="#ee423f" >
       <swiper-item
         wx:for="{{bannerList}}"
@@ -23,7 +24,7 @@
         </view>
       </swiper-item>
     </swiper>
-    <view class="swiper-nodata-wrapper" hidden="{{bannerList.length > 0 || hasBannerData}}" style="display: none;">
+    <view class="swiper-nodata-wrapper" hidden="{{hasBannerData}}" style="display: none;">
       <text class="iconfont icon-zanwushuju swiper-nodata" />
     </view>
     <swiper class="swiper-wrapper" bindchange="bindchange">

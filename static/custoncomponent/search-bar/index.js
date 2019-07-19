@@ -160,12 +160,21 @@ Component({
             searchPage: params.offset
           })
         } else {
-          this.properties.API.showErrNotice(msg ? {err: msg} : {err})
+          this.properties.API.showErrNotice(false)
         }
         wx.hideLoading()
       } catch (err) {
         wx.hideLoading()
       }
+    },
+    goToPlayView (e) {
+      const songId = e.currentTarget.dataset.songId
+      wx.navigateTo({
+        url: '/pages/play/view/main?' + `id=${songId}`,
+        fail (err) {
+          console.log(err)
+        }
+      })
     }
   }
 })
