@@ -6,8 +6,9 @@
 }
 .page__bd {
 	height: 45px;
-	position: sticky;
+	position: fixed;
 	top: 0;
+	width: 100%;
 	background: #f0413f;
 	z-index: 10;
 }

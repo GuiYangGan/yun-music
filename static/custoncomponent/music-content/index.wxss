@@ -28,6 +28,9 @@
 
 .wrapper {
   height: calc(100vh - 45px);
+  position: fixed;
+  width: 100%;
+  top: 45px;
 }
 
 .swiper-item-wrapper {

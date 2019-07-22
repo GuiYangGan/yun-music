@@ -1,7 +1,7 @@
 <template>
   <block>
     <tab-Bar :selectNavIndex="1" />
-    <div style="height: calc(100vh - 55px); overflow: hidden;">
+    <div class="wrapper">
       <img :src="(songInfo && songInfo.al && songInfo.al.picUrl) && songInfo.al.picUrl" class="background_img" />
       <div class="play-wrapper" >
         <div class="play-title">
@@ -44,7 +44,8 @@ export default {
       songInfo: {},
       isPlay: '',
       songId: [],
-      song: []
+      song: [],
+      isStop: false
     }
   },
   onLoad () {
@@ -68,6 +69,13 @@ export default {
       if (bgAudioManage && Object.keys(bgAudioManage).length > 0) {
         const isPaused = bgAudioManage.paused // true表示音乐暂停
         this.isPlay = !isPaused
+        bgAudioManage.onPause(() => {
+          this.isPlay = false
+        })
+        bgAudioManage.onStop(() => {
+          this.isStop = true
+          this.isPlay = false
+        })
         bgAudioManage.onEnded(() => {
           this.isPlay = false
           this.go_nextSong()
@@ -94,12 +102,19 @@ export default {
       const bgAudioManage = global.getApp().globalData.bgAudioManage || wx.getBackgroundAudioManager()
       const url = this.url + `${info.id}.mp3`
       bgAudioManage.title = info.name
-      bgAudioManage.singer = `${info.ar.map(item => item.name).join('/')}`
-      bgAudioManage.epname = `${info.alia.map(item => item.name).join('/')}`
-      bgAudioManage.coverImgUrl = info.al.picUrl
+      bgAudioManage.singer = `${info.ar && info.ar.map(item => item.name).join('/')}`
+      bgAudioManage.epname = `${info.alia && info.alia.map(item => item.name).join('/')}`
+      bgAudioManage.coverImgUrl = info.al && info.al.picUrl
       bgAudioManage.src = url
       bgAudioManage.onPlay(res => {
         this.isPlay = true
+      })
+      bgAudioManage.onPause(() => {
+        this.isPlay = false
+      })
+      bgAudioManage.onStop(() => {
+        this.isStop = true
+        this.isPlay = false
       })
       bgAudioManage.onEnded(() => {
         this.isPlay = false
@@ -117,7 +132,7 @@ export default {
           this.isPlay = !this.isPlay
         } else {
           const currentTime = bgAudioManage.currentTime
-          if (currentTime === 0) {
+          if (currentTime === 0 || this.isStop) {
             this.play(this.songInfo)
           } else {
             bgAudioManage.play()

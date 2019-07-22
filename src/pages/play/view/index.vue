@@ -42,7 +42,8 @@ export default {
       isPlay: '',
       songId: [],
       song: [],
-      history_song: []
+      history_song: [],
+      isStop: false
     }
   },
   onLoad (options) {
@@ -106,9 +107,9 @@ export default {
         global.getApp().globalData.bgAudioManage = bgAudioManage
       }
       bgAudioManage.title = songInfo.name
-      bgAudioManage.singer = `${songInfo.ar.map(item => item.name).join('/')}`
-      bgAudioManage.epname = `${songInfo.alia.map(item => item.name).join('/')}`
-      bgAudioManage.coverImgUrl = songInfo.al.picUrl
+      bgAudioManage.singer = `${songInfo.ar && songInfo.ar.map(item => item.name).join('/')}`
+      bgAudioManage.epname = `${songInfo.alia && songInfo.alia.map(item => item.name).join('/')}`
+      bgAudioManage.coverImgUrl = songInfo.al && songInfo.al.picUrl
       bgAudioManage.src = url
       let historySong = this.history_song
       historySong.push(songInfo)
@@ -119,8 +120,14 @@ export default {
         this.song = historySong
         wx.setStorageSync('history_song', historySong)
       })
+      bgAudioManage.onPause(() => {
+        this.isPlay = false
+      })
+      bgAudioManage.onStop(() => {
+        this.isStop = true
+        this.isPlay = false
+      })
       bgAudioManage.onEnded(() => {
-        console.log('onEnded-view页面')
         this.isPlay = false
         this.go_nextSong()
       })
@@ -129,13 +136,24 @@ export default {
       })
     },
     handleToggleBGAudio () {
-      const { bgAudioManage } = global.getApp().globalData
-      if (this.isPlay) {
-        bgAudioManage.pause()
+      const bgAudioManage = global.getApp().globalData.bgAudioManage
+      const url = this.url + `${this.songId}.mp3`
+      if (bgAudioManage && Object.keys(bgAudioManage).length > 0) {
+        if (this.isPlay) {
+          bgAudioManage.pause()
+          this.isPlay = !this.isPlay
+        } else {
+          const currentTime = bgAudioManage.currentTime
+          if (currentTime === 0 || this.isStop) {
+            this.createBgAudio(url, this.songId)
+          } else {
+            bgAudioManage.play()
+            this.isPlay = !this.isPlay
+          }
+        }
       } else {
-        bgAudioManage.play()
+        this.createBgAudio(url, this.songId)
       }
-      this.isPlay = !this.isPlay
     },
     go_prevSong () {
       const currentIndex = this.song.findIndex(item => Number(item.id) === Number(this.songId))

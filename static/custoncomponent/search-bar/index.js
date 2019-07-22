@@ -17,6 +17,7 @@ Component({
     },
     inputShowed: true,
     searchKey: '',
+    history_key: '',
     hotsongs: [],
     history: [],
     suggest: {},
@@ -57,7 +58,13 @@ Component({
       this.setData({
         searchKey: '',
         inputShowed: false,
-        searchOver: false
+        searchOver: false,
+        history_key: '',
+        searchResult: [],
+        suggest: [],
+        hasSugData: 0,
+        serachCount: 0,
+        searchPage: 0
       })
       this.properties.parentFunc.setSearch(false)
     },
@@ -91,11 +98,11 @@ Component({
         let hList = this.properties.history
         hList.push(value)
         hList = hList = this.properties.parentFunc.removeRepeat(hList)
+        this.setData({history: hList, searchKey: value})
         wx.setStorage({
           key: 'SEARCH_HISTROY',
           data: hList
         })
-        this.setData({history: hList, searchKey: value})
         this.searchResult({keywords: value, offset: 0, loadning: true})
       }
     },
@@ -152,12 +159,19 @@ Component({
           offset: params.offset
         })
         if (code === 200 && result.songs) {
-          const serachData = this.properties.serachData.concat(result.songs)
+          let serachData = []
+          if (this.properties.history_key === params.keywords) {
+            serachData = this.properties.serachData.concat(result.songs)
+          } else {
+            serachData = result.songs
+          }
+          console.log(serachData)
           this.setData({
-            serachData: serachData,
+            serachData,
             serachCount: result.songCount,
             searchOver: true,
-            searchPage: params.offset
+            searchPage: params.offset,
+            history_key: params.keywords
           })
         } else {
           this.properties.API.showErrNotice(false)
