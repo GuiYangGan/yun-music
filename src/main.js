@@ -5,8 +5,7 @@ import './index.less'
 
 // 禁用原生tabBar
 wx.hideTabBar()
-
-wx.setInnerAudioOption({
+wx.createInnerAudioContext({
   mixWithOther: false,
   obeyMuteSwitch: false
 })
